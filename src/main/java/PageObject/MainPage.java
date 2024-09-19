@@ -84,7 +84,7 @@ public class MainPage {
     }
 
     //метод для ожидания загрузки главной страницы
-    public static void waitForLoadMainPAge() {
+    public static void waitForLoadMainPage() {
         new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(driver.findElement(topOrderButton)));
     }
 
@@ -109,7 +109,7 @@ public class MainPage {
         driver.findElement(bottomOrderButton).click();
     }
 
-    public void ClickOrderButton(By choisedOrderButton){
+    public void clickOrderButton(By choisedOrderButton){
         if (choisedOrderButton == topOrderButton){
             clickTopOrderButton();
         }

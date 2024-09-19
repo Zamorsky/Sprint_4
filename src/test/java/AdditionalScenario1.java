@@ -1,4 +1,5 @@
 import PageObject.AboutRentPage;
+import PageObject.Constants.URLs;
 import PageObject.ForWhoScooterPage;
 import PageObject.MainPage;
 import org.junit.After;
@@ -15,7 +16,6 @@ import static org.junit.Assert.assertEquals;
 
 public class AdditionalScenario1 {
     WebDriver driver;
-    private final String site = "https://qa-scooter.praktikum-services.ru/";
 
     @Before
     public void GetMainPage () {
@@ -23,7 +23,7 @@ public class AdditionalScenario1 {
         options.addArguments(); //"--no-sandbox", "--headless", "--disable-dev-shm-usage"
         driver = new ChromeDriver(options);
         // переход на страницу тестового приложения
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(URLs.URL_QA_SCOOTER);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
@@ -33,11 +33,10 @@ public class AdditionalScenario1 {
     public void clickScooterFromMainPage() {
         MainPage objMainPage = new MainPage(driver);
 
-        MainPage.waitForLoadMainPAge();
+        objMainPage.waitForLoadMainPage();
+        objMainPage.clickButtonScooter();
 
-        MainPage.clickButtonScooter();
-
-        assertEquals("https://qa-scooter.praktikum-services.ru/", driver.getCurrentUrl());
+        assertEquals(URLs.URL_QA_SCOOTER, driver.getCurrentUrl());
     }
 
     @Test
@@ -45,12 +44,12 @@ public class AdditionalScenario1 {
         MainPage objMainPage = new MainPage(driver);
         ForWhoScooterPage objForWhoScooterPage = new ForWhoScooterPage(driver);
 
-        MainPage.waitForLoadMainPAge();
-        objMainPage.ClickOrderButton(topOrderButton);
+        objMainPage.waitForLoadMainPage();
+        objMainPage.clickOrderButton(topOrderButton);
 
-        ForWhoScooterPage.clickButtonScooter();
+        objForWhoScooterPage.clickButtonScooter();
 
-        assertEquals("https://qa-scooter.praktikum-services.ru/", driver.getCurrentUrl());
+        assertEquals(URLs.URL_QA_SCOOTER, driver.getCurrentUrl());
     }
 
     @Test
@@ -59,18 +58,18 @@ public class AdditionalScenario1 {
         ForWhoScooterPage objForWhoScooterPage = new ForWhoScooterPage(driver);
         AboutRentPage objAboutRentPage = new AboutRentPage(driver);
 
-        MainPage.waitForLoadMainPAge();
-        objMainPage.ClickOrderButton(topOrderButton);
-        ForWhoScooterPage.inputName("Кнопки");
-        ForWhoScooterPage.inputSurname("Тестируем");
-        ForWhoScooterPage.inputAddress("самокат");
-        ForWhoScooterPage.inputTelephone("+79265949591");
-        ForWhoScooterPage.inputMetrostation("Перово");
-        ForWhoScooterPage.clickButtonNext();
-        AboutRentPage.waitForLoadAboutRentPage();
-        AboutRentPage.clickButtonScooter();
+        objMainPage.waitForLoadMainPage();
+        objMainPage.clickOrderButton(topOrderButton);
+        objForWhoScooterPage.inputName("Кнопки");
+        objForWhoScooterPage.inputSurname("Тестируем");
+        objForWhoScooterPage.inputAddress("самокат");
+        objForWhoScooterPage.inputTelephone("+79265949591");
+        objForWhoScooterPage.inputMetrostation("Перово");
+        objForWhoScooterPage.clickButtonNext();
+        objAboutRentPage.waitForLoadAboutRentPage();
+        objAboutRentPage.clickButtonScooter();
 
-        assertEquals("https://qa-scooter.praktikum-services.ru/", driver.getCurrentUrl());
+        assertEquals(URLs.URL_QA_SCOOTER, driver.getCurrentUrl());
     }
 
 
@@ -78,5 +77,4 @@ public class AdditionalScenario1 {
     public void teardown() {
         driver.quit();
     }
-
 }

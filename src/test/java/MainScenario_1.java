@@ -4,6 +4,7 @@
 Выпадающий список в разделе «Вопросы о важном». Тебе нужно проверить: когда нажимаешь на стрелочку, открывается соответствующий текст.
  */
 
+import PageObject.Constants.URLs;
 import PageObject.MainPage;
 import org.junit.After;
 import org.junit.Before;
@@ -18,6 +19,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
 import static PageObject.Constants.ExpectedAnswers.*;
+import static PageObject.MainPage.waitForLoadMainPage;
 import static org.junit.Assert.assertEquals;
 
 
@@ -53,17 +55,17 @@ public class MainScenario_1 {
     @Before
     public void GetMainPage () {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(); //"--no-sandbox", "--headless", "--disable-dev-shm-usage"
+        //options.addArguments(); //"--no-sandbox", "--headless", "--disable-dev-shm-usage"
         driver = new ChromeDriver(options);
         // переход на страницу тестового приложения
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(URLs.URL_QA_SCOOTER);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @Test
     public void checkAnswerText() {
         MainPage objMainPage = new MainPage(driver);
-        objMainPage.waitForLoadMainPAge();
+        waitForLoadMainPage();
         objMainPage.scrollDownToLastQuestion();
 
         driver.findElement(question).click();

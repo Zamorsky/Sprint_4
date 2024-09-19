@@ -9,6 +9,7 @@
  */
 
 import PageObject.AboutRentPage;
+import PageObject.Constants.URLs;
 import PageObject.ForWhoScooterPage;
 import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.By;
@@ -36,27 +37,29 @@ public class MainScenario_2 {
     private WebDriver driver;
 
     private final By choisedOrderButton;
-    private final String Name;
-    private final String Surname;
-    private final String Address;
-    private final String Metrostation;
-    private final String Telephone;
-    private final String DateOfScooterDelivery;
-    private final String RentTime;
-    private final String ColorOfScooter;
+    private final String name;
+    private final String surname;
+    private final String address;
+    private final String metrostation;
+    private final String telephone;
+    private final String dateOfScooterDelivery;
+    private final String rentTime;
+    private final String colorOfScooter;
     private final String inputComment;
     private final String expectedTextInFinalPopup;
 
-    public MainScenario_2(By choisedOrderButton, String Name, String Surname, String Address, String Metrostation, String Telephone, String DateOfScooterDelivery, String RentTime, String ColorOfScooter, String inputComment, String expectedTextInFinalPopup) {
+    public MainScenario_2(By choisedOrderButton, String name, String surname, String address, String metrostation,
+                          String telephone, String dateOfScooterDelivery, String rentTime, String colorOfScooter,
+                          String inputComment, String expectedTextInFinalPopup) {
         this.choisedOrderButton = choisedOrderButton;
-        this.Name = Name;
-        this.Surname= Surname;
-        this.Address = Address;
-        this.Metrostation = Metrostation;
-        this.Telephone = Telephone;
-        this.DateOfScooterDelivery = DateOfScooterDelivery;
-        this.RentTime = RentTime;
-        this.ColorOfScooter = ColorOfScooter;
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.metrostation = metrostation;
+        this.telephone = telephone;
+        this.dateOfScooterDelivery = dateOfScooterDelivery;
+        this.rentTime = rentTime;
+        this.colorOfScooter = colorOfScooter;
         this.inputComment = inputComment;
         this.expectedTextInFinalPopup = expectedTextInFinalPopup;
     }
@@ -72,12 +75,12 @@ public class MainScenario_2 {
 
 
     @Before
-     public void GetMainPage() {
+     public void getMainPage() {
          ChromeOptions options = new ChromeOptions();
          options.addArguments(); //"--no-sandbox", "--headless", "--disable-dev-shm-usage"
          driver = new ChromeDriver(options);
          // переход на страницу тестового приложения
-         driver.get("https://qa-scooter.praktikum-services.ru/");
+         driver.get(URLs.URL_QA_SCOOTER);
          driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
@@ -100,20 +103,23 @@ public class MainScenario_2 {
         ForWhoScooterPage objForWhoScooterPage = new ForWhoScooterPage(driver);
         AboutRentPage objAboutRentPage = new AboutRentPage(driver);
 
-        objMainPage.ClickOrderButton(choisedOrderButton);
-        ForWhoScooterPage.inputName(Name);
-        ForWhoScooterPage.inputSurname(Surname);
-        ForWhoScooterPage.inputAddress(Address);
-        ForWhoScooterPage.inputTelephone(Telephone);
-        ForWhoScooterPage.inputMetrostation(Metrostation);
+        objMainPage.clickOrderButton(choisedOrderButton);
+
+        objForWhoScooterPage.inputName(name);
+        objForWhoScooterPage.inputSurname(surname);
+        objForWhoScooterPage.inputAddress(address);
+        objForWhoScooterPage.inputTelephone(telephone);
+        objForWhoScooterPage.inputMetrostation(metrostation);
         objForWhoScooterPage.clickButtonNext();
-        AboutRentPage.waitForLoadAboutRentPage();
-        AboutRentPage.inputDateOfScooterDelivery(DateOfScooterDelivery);
-        AboutRentPage.inputRentTime(RentTime);
-        AboutRentPage.inputColorOfScooter(ColorOfScooter);
-        AboutRentPage.inputComment(inputComment);
+
+        objAboutRentPage.waitForLoadAboutRentPage();
+        objAboutRentPage.inputDateOfScooterDelivery(dateOfScooterDelivery);
+        objAboutRentPage.inputRentTime(rentTime);
+        objAboutRentPage.inputColorOfScooter(colorOfScooter);
+        objAboutRentPage.inputComment(inputComment);
         objAboutRentPage.clickButtonOrder();
         objAboutRentPage.clickButtonAccept();
+
         MatcherAssert.assertThat("Ошибка! Итоговый попап с текстом об успехе не выведен. ",
                 objAboutRentPage.getTextOfSuccessOrder(),
                 containsString(expectedTextInFinalPopup));

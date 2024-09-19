@@ -10,3 +10,4 @@ public class ExpectedAnswers {
     public static final String expectedAnswer7 = "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.";
     public static final String expectedAnswer8 = "Да, обязательно. Всем самокатов! И Москве, и Московской области.";
 }
+

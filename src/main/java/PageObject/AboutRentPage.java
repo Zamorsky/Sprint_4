@@ -4,14 +4,9 @@
 package PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.junit.After;
-import org.junit.Test;
-import static org.hamcrest.CoreMatchers.is;
-import org.hamcrest.MatcherAssert;
+
 
 
 public class AboutRentPage {
@@ -45,12 +40,12 @@ public class AboutRentPage {
 
 
     //метод ожидания загрузки страницы "про аренду"
-    public static void waitForLoadAboutRentPage() {
+    public void waitForLoadAboutRentPage() {
         new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[contains(text(), 'Про аренду')]"))));
     }
 
     //метод ввода даты привоза самоката
-    public static void inputDateOfScooterDelivery(String newDateOfScooterDelivery) {
+    public void inputDateOfScooterDelivery(String newDateOfScooterDelivery) {
         new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(DateOfScooterDelivery));
         driver.findElement(DateOfScooterDelivery).click();
         driver.findElement(DateOfScooterDelivery).sendKeys(newDateOfScooterDelivery);
@@ -58,18 +53,18 @@ public class AboutRentPage {
     }
 
     //метод ввода времени срока аренды
-    public static void inputRentTime(String newRentTime) {
+    public void inputRentTime(String newRentTime) {
         driver.findElement(rentTime).click();
         driver.findElement(By.xpath("//*[contains(text(), '" + newRentTime + "')]")).click();
     }
 
     //метод для ввода цвета самоката
-    public static void inputColorOfScooter(String newColorOfScooter) {
+    public void inputColorOfScooter(String newColorOfScooter) {
         driver.findElement(By.xpath("//*[contains(text(), '" + newColorOfScooter + "')]")).click();
     }
 
     //метод ввода комментария для курьера
-    public static void inputComment(String newComment) {
+    public void inputComment(String newComment) {
         driver.findElement(Comment).click();
         driver.findElement(Comment).clear();
         driver.findElement(Comment).sendKeys(newComment);
@@ -92,7 +87,7 @@ public class AboutRentPage {
         return driver.findElement(TextOfSuccessOrder).getText();
     }
 
-    public static void clickButtonScooter() {
+    public void clickButtonScooter() {
         driver.findElement(buttonScooter).click();
     }
 

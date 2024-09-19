@@ -36,44 +36,44 @@ public class ForWhoScooterPage {
     }
 
     //метод дождаться загрузки поля Имя
-    public static void waitForLoadForWhoScooterPage() {
+    public void waitForLoadForWhoScooterPage() {
         new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(driver.findElement(Name)));
     }
 
     //метод ввода имя
-    public static void inputName(String newName) {
+    public void inputName(String newName) {
         driver.findElement(Name).sendKeys(newName);
     }
 
     //метод ввода фамилия
-    public static void inputSurname(String newSurname) {
+    public void inputSurname(String newSurname) {
         driver.findElement(Surname).sendKeys(newSurname);
     }
 
     //метод ввода адрес
-    public static void inputAddress(String newAddress) {
+    public void inputAddress(String newAddress) {
         driver.findElement(Address).sendKeys(newAddress);
     }
 
     //метод выбрать станцию метро
-    public static void inputMetrostation(String newMetrostation) {
+    public void inputMetrostation(String newMetrostation) {
         new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(Metrostation));
         driver.findElement(Metrostation).click();
         driver.findElement(By.xpath("//*[contains(text(), '" + newMetrostation + "')]")).click();
     }
 
     //метод ввода телефона
-    public static void inputTelephone(String newTelephone) {
+    public void inputTelephone(String newTelephone) {
         new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(telephone));
         driver.findElement(telephone).sendKeys(newTelephone);
     }
 
     //метод нажатия на кнопку далее
-    public static void clickButtonNext() {
+    public void clickButtonNext() {
         driver.findElement(buttonNext).click();
     }
 
-    public static void clickButtonScooter() {
+    public void clickButtonScooter() {
         driver.findElement(buttonScooter).click();
     }
 
