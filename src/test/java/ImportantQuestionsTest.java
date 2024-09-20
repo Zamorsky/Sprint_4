@@ -4,8 +4,8 @@
 Выпадающий список в разделе «Вопросы о важном». Тебе нужно проверить: когда нажимаешь на стрелочку, открывается соответствующий текст.
  */
 
-import PageObject.Constants.URLs;
-import PageObject.MainPage;
+import pageobject.constants.URLs;
+import pageobject.MainPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,21 +18,21 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
-import static PageObject.Constants.ExpectedAnswers.*;
-import static PageObject.MainPage.waitForLoadMainPage;
+
+
 import static org.junit.Assert.assertEquals;
+import static pageobject.constants.ExpectedAnswers.*;
 
 
 @RunWith(Parameterized.class)
-public class MainScenario_1 {
-
-    private WebDriver driver;
+public class ImportantQuestionsTest extends BeforeAndAfterParent {
 
     private final By question;
     private final By answer;
     private final String expectedText;
 
-    public MainScenario_1(By question, By answer, String expectedText) {
+    public ImportantQuestionsTest(By question, By answer, String expectedText) {
+
         this.question = question;
         this.answer = answer;
         this.expectedText = expectedText;
@@ -41,31 +41,22 @@ public class MainScenario_1 {
     @Parameterized.Parameters
     public static Object[][] TestData() {
         return new Object[][]{
-                {MainPage.question1, MainPage.answer1, expectedAnswer1},
-                {MainPage.question2, MainPage.answer2, expectedAnswer2},
-                {MainPage.question3, MainPage.answer3, expectedAnswer3},
-                {MainPage.question4, MainPage.answer4, expectedAnswer4},
-                {MainPage.question5, MainPage.answer5, expectedAnswer5},
-                {MainPage.question6, MainPage.answer6, expectedAnswer6},
-                {MainPage.question7, MainPage.answer7, expectedAnswer7},
-                {MainPage.question8, MainPage.answer8, expectedAnswer8},
+                {MainPage.QUESTION_1, MainPage.ANSWER_1, EXPECTED_ANSWER_1},
+                {MainPage.QUESTION_2, MainPage.ANSWER_2, EXPECTED_ANSWER_2},
+                {MainPage.QUESTION_3, MainPage.ANSWER_3, EXPECTED_ANSWER_3},
+                {MainPage.QUESTION_4, MainPage.ANSWER_4, EXPECTED_ANSWER_4},
+                {MainPage.QUESTION_5, MainPage.ANSWER_5, EXPECTED_ANSWER_5},
+                {MainPage.QUESTION_6, MainPage.ANSWER_6, EXPECTED_ANSWER_6},
+                {MainPage.QUESTION_7, MainPage.ANSWER_7, EXPECTED_ANSWER_7},
+                {MainPage.QUESTION_8, MainPage.ANSWER_8, EXPECTED_ANSWER_8},
         };
     }
 
-    @Before
-    public void GetMainPage () {
-        ChromeOptions options = new ChromeOptions();
-        //options.addArguments(); //"--no-sandbox", "--headless", "--disable-dev-shm-usage"
-        driver = new ChromeDriver(options);
-        // переход на страницу тестового приложения
-        driver.get(URLs.URL_QA_SCOOTER);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    }
 
     @Test
     public void checkAnswerText() {
         MainPage objMainPage = new MainPage(driver);
-        waitForLoadMainPage();
+        objMainPage.waitForLoadMainPage();
         objMainPage.scrollDownToLastQuestion();
 
         driver.findElement(question).click();
@@ -74,9 +65,5 @@ public class MainScenario_1 {
         assertEquals(expectedText, driver.findElement(answer).getText());
     }
 
-    @After
-    public void tearDown() {
-        // Закрой браузер
-        driver.quit();
-    }
+
 }
