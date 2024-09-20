@@ -1,33 +1,13 @@
-import PageObject.AboutRentPage;
-import PageObject.Constants.URLs;
-import PageObject.ForWhoScooterPage;
-import PageObject.MainPage;
-import org.junit.After;
-import org.junit.Before;
+import pageobject.AboutRentPage;
+import pageobject.constants.URLs;
+import pageobject.ForWhoScooterPage;
+import pageobject.MainPage;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.util.concurrent.TimeUnit;
-
-import static PageObject.MainPage.topOrderButton;
+import static pageobject.MainPage.TOP_ORDER_BUTTON;
 import static org.junit.Assert.assertEquals;
 
-public class AdditionalScenario1 {
-    WebDriver driver;
-
-    @Before
-    public void GetMainPage () {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments(); //"--no-sandbox", "--headless", "--disable-dev-shm-usage"
-        driver = new ChromeDriver(options);
-        // переход на страницу тестового приложения
-        driver.get(URLs.URL_QA_SCOOTER);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    }
-
-
+public class ButtonScooterTest extends BeforeAndAfterParent {
 
     @Test
     public void clickScooterFromMainPage() {
@@ -45,7 +25,7 @@ public class AdditionalScenario1 {
         ForWhoScooterPage objForWhoScooterPage = new ForWhoScooterPage(driver);
 
         objMainPage.waitForLoadMainPage();
-        objMainPage.clickOrderButton(topOrderButton);
+        objMainPage.clickOrderButton(TOP_ORDER_BUTTON);
 
         objForWhoScooterPage.clickButtonScooter();
 
@@ -59,7 +39,7 @@ public class AdditionalScenario1 {
         AboutRentPage objAboutRentPage = new AboutRentPage(driver);
 
         objMainPage.waitForLoadMainPage();
-        objMainPage.clickOrderButton(topOrderButton);
+        objMainPage.clickOrderButton(TOP_ORDER_BUTTON);
         objForWhoScooterPage.inputName("Кнопки");
         objForWhoScooterPage.inputSurname("Тестируем");
         objForWhoScooterPage.inputAddress("самокат");
@@ -70,11 +50,5 @@ public class AdditionalScenario1 {
         objAboutRentPage.clickButtonScooter();
 
         assertEquals(URLs.URL_QA_SCOOTER, driver.getCurrentUrl());
-    }
-
-
-    @After
-    public void teardown() {
-        driver.quit();
     }
 }
